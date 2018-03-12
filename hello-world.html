@@ -1,0 +1,10 @@
+<script src="https://rawgit.com/pikilipita/AR.js/master/aframe/examples/vendor/aframe/build/aframe.js"></script>
+<script src="/aframe-ar.js"></script>
+<body style='margin : 0px; overflow: hidden;'>
+	<a-scene embedded arjs='trackingMethod: best;'>
+      <a-anchor hit-testing-enabled='true'>
+   		<a-obj-model src="/Watermelon.obj" mtl="/Watermelon.mtl" scale="1 1 1"></a-obj-model>
+      </a-anchor>
+		<a-camera-static/>
+	</a-scene>
+</body>
