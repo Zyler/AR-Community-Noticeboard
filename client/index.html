@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <!-- three.js library -->
-<script src='./three.min.js'></script>
+<script src='/js/three.min.js'></script>
 <!-- ar.js -->
-<script src="./ar.js"></script>
+<script src="/js/ar.js"></script>
+
+<!--FBX Loader Dependencies-->
+<script src='/js/NURBSCurve.js'></script>
+<script src='/js/NURBSUtils.js'></script>
+<script src='/js/FBXLoader.js'></script>
+<script src='/js/inflate.min.js'></script>
+
+<!-- CSS3DRenderer -->
+<script src='/js/CSS3DRenderer.js'></script>
+
 <script>THREEx.ArToolkitContext.baseURL = './'</script>
 
-<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
-	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - three.js camera transform
-	<br/>
-	Contact me any time at <a href='https://twitter.com/jerome_etienne' target='_blank'>@jerome_etienne</a>
-</div><script>
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><script>
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Init
 	//////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +44,8 @@
 	//////////////////////////////////////////////////////////////////////////////////
 
 	// Create a camera
-	var camera = new THREE.Camera();
+// 	var camera = new THREE.Camera();
+  var camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
 	scene.add(camera);
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -124,12 +131,42 @@
 	var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
 	var material	= new THREE.MeshNormalMaterial(); 
 	var mesh	= new THREE.Mesh( geometry, material );
+
 	mesh.position.y	= 0.5
 	scene.add( mesh );
 	
 	onRenderFcts.push(function(delta){
 		mesh.rotation.x += Math.PI*delta
 	})
+	
+	// var scene2 = new THREE.Scene();
+	// scene2.add(camera)
+			
+	// var objects = [];
+          
+	// for (i = 0; i < 8; i++) {
+	// var div = document.createElement( 'div' );
+	// div.style.width = '50px';
+	// div.style.height = '50px';
+	// div.style.backgroundColor = '#ff0000'
+	// div.innerHTML = "AAAAAaaaaaaaaaa!";
+ //   objects[i] = new THREE.CSS3DObject(div);
+ //   objects[i].position.x = -400+(i*100);
+ //   objects[i].position.z = Math.pow(Math.PI*(i-3),2);
+	// 	objects[i].lookAt(camera.position)
+ //   scene2.add(objects[i]);      		
+	// }
+
+	// var renderer2 = new THREE.CSS3DRenderer();
+	// renderer.setClearColor(0xffffff, 1);
+	// renderer.setSize(window.innerWidth, window.innerHeight);
+	// renderer2.setSize(window.innerWidth, window.innerHeight);
+	// renderer.domElement.style.position = 'absolute';
+	// renderer2.domElement.style.position = 'absolute';
+	// /*renderer2.domElement.style.backgroundColor = "#0000ff";*/
+	// document.body.appendChild(renderer.domElement);
+	// document.body.appendChild(renderer2.domElement);
+
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
@@ -139,9 +176,52 @@
 	onRenderFcts.push(function(){
 		renderer.render( scene, camera );
 	})
+		
+	// onRenderFcts.push(function() {
+	// 	renderer2.render( scene2, camera);
+	// })
+	
+	var mouse = new THREE.Vector2(), INTERSECTED;
+	
+	function onDocumentMouseMove( event ) {
+		event.preventDefault();
+		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	}
+	
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	var radius = 100, theta = 0;
+	var raycaster = new THREE.Raycaster();
+	
+	onRenderFcts.push(function() {
+	  theta += 0.1;
+	  camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+				camera.lookAt( scene.position );
+				camera.updateMatrixWorld();
+				// find intersections
+				raycaster.setFromCamera( mouse, camera );
+				var intersects = raycaster.intersectObjects( scene.children );
+				if ( intersects.length > 0 ) {
+				// 	if ( INTERSECTED != intersects[ 0 ].object ) {
+				// 		if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+				// 		INTERSECTED = intersects[ 0 ].object;
+				// 		INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+				// 		INTERSECTED.material.emissive.setHex( 0xff0000 );
+				// 	}
+				  console.log("Intersections: " + intersects.length)
+				} else {
+				// 	if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+				// 	INTERSECTED = null;
+				  console.log("No intersects")
+				}
+
+	})
 
 	// run the rendering loop
 	var lastTimeMsec= null
+	
 	requestAnimationFrame(function animate(nowMsec){
 		// keep looping
 		requestAnimationFrame( animate );
