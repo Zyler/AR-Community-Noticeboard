@@ -141,28 +141,16 @@
 	
 	var scene2 = new THREE.Scene();
 	scene2.add(camera)
-			
-	var objects = [];
-          
-	// for (i = 0; i < 8; i++) {
-	// var div = document.createElement( 'div' );
-	// div.style.width = '50px';
-	// div.style.height = '50px';
+	
+	var div = document.createElement( 'div' );
+	// div.style.fontSize = '72px'
+	// div.style.width = '1000px';
+	// div.style.height = '1000px';
 	// div.style.backgroundColor = '#ff0000'
 	// div.innerHTML = "AAAAAaaaaaaaaaa!";
- //   objects[i] = new THREE.CSS3DObject(div);
- //   objects[i].position.x = -5+(i*1);
- //   objects[i].position.z = Math.pow(Math.PI*(i-3),2);
-	// 	objects[i].lookAt(camera.position)
- //   scene2.add(objects[i]);      		
-	// }
-	var div = document.createElement( 'div' );
-	div.style.fontSize = '72px'
-	div.style.width = '1000px';
-	div.style.height = '1000px';
-	div.style.backgroundColor = '#ff0000'
-	div.innerHTML = "AAAAAaaaaaaaaaa!";
-  var object = new THREE.CSS3DObject(div);
+  // var object = new THREE.CSS3DObject(div);
+  var object = new THREE.Mesh()
+
   object.scale.x *= 0.001
   object.scale.y *= 0.001
   object.scale.z *= 0.001
@@ -174,8 +162,45 @@
 	var pivot = new THREE.Group();
 	scene2.add( pivot );
 	pivot.add( object );
-  object.rotation.x = Math.PI/2
+  object.rotation.y = Math.PI/2
+				
+	var objects = [];
+
+	// var diameter = 1000
+  var perspectivePoint = new THREE.Vector3(0, 1000, 0)
+
+	for (i = 0; i < 8; i++) {
+		var div = document.createElement( 'div' );
+		div.style.width = '500px';
+		div.style.height = '500px';
+		div.style.backgroundColor = '#ff0000'
+		div.innerHTML = "AAAAAaaaaaaaaaa!";
+		var diameter = i-3
+    objects[i] = new THREE.CSS3DObject(div);
+    objects[i].position.z = -400+(i*100);
+    objects[i].position.y = Math.pow(Math.PI*diameter,2);
+		objects[i].lookAt(perspectivePoint)
+		
+		// objects[i].rotation.x -= Math.PI/2
+		
+    object.add(objects[i]);
+	}
+	  
+	var spherediv = document.createElement('div')
 	
+	spherediv.style.width = '50px';
+	spherediv.style.height = '50px';
+	spherediv.style.backgroundColor = 'blue'
+	
+  var sphere = new THREE.CSS3DObject(spherediv)
+	sphere.position.x = perspectivePoint.x
+	sphere.position.y = perspectivePoint.y
+	sphere.position.z = perspectivePoint.z
+	
+
+	object.add( sphere );
+	
+	scene.add(new THREE.AxesHelper(5))
   // scene2.add(object)
 
 	var renderer2 = new THREE.CSS3DRenderer();
