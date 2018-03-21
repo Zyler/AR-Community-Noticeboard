@@ -27,7 +27,7 @@
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	renderer.setSize( 640, 480 );
+	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
@@ -143,12 +143,6 @@
 	scene2.add(camera)
 	
 	var div = document.createElement( 'div' );
-	// div.style.fontSize = '72px'
-	// div.style.width = '1000px';
-	// div.style.height = '1000px';
-	// div.style.backgroundColor = '#ff0000'
-	// div.innerHTML = "AAAAAaaaaaaaaaa!";
-  // var object = new THREE.CSS3DObject(div);
   var object = new THREE.Mesh()
 
   object.scale.x *= 0.001
@@ -163,53 +157,71 @@
 	scene2.add( pivot );
 	pivot.add( object );
   object.rotation.y = Math.PI/2
-				
+	
+	function getAngleFromLength(radius, length) {
+		return 2 * Math.asin(length/(radius*2))
+	}
+	
+	function getCoordinatesFromAngle(origin, radius, angle) {
+		return new THREE.Vector3((origin.x + radius * Math.cos(angle)), 0, (origin.z + radius * Math.sin(angle)))
+	}
+	
+	function getMidpoint(point1, point2) {
+		return new THREE.Vector3((point1.x + point2.x)/2, (point1.y + point2.y)/2, (point1.z + point2.z)/2)
+	}
+	
 	var objects = [];
-
-	// var diameter = 1000
+	
   var perspectivePoint = new THREE.Vector3(0, 2000, 0)
-	var interval = Math.PI/9
 	var numberOfPanels = 10
+	var radius = 2000
+	var previousAngle = 0
+	
 	for (i = 0; i < numberOfPanels; i++) {
 		var div = document.createElement( 'div' );
+		var divSize = 100 * i
 		div.style.fontSize = '100px'
-		div.style.width = '500px';
-		div.style.height = '500px';
+		div.style.width = divSize + 'px';
+		div.style.height = divSize + 'px';
 		div.style.backgroundColor = '#ff0000'
 		div.innerHTML = Number.parseInt(i);
-		var radius = 2000
     objects[i] = new THREE.CSS3DObject(div);
     var sequencePos = 0
-    if (numberOfPanels%2 == 0) {
-    	sequencePos = i - (numberOfPanels)/2 + 0.5
-    } else {
-    	sequencePos = i - ((numberOfPanels-1)/2)
-    }
-    // console.log(sequencePos)
-    objects[i].position.z = perspectivePoint.z + radius * Math.cos(interval * sequencePos - (Math.PI/2))
-    objects[i].position.y = perspectivePoint.y + radius * Math.sin(interval * sequencePos - (Math.PI/2))
     
-    // console.log(objects[i].rotation)
+    var width = parseInt(div.style.width,10)
+		var angleOffset = getAngleFromLength(radius, width)
+		var point1 = getCoordinatesFromAngle(perspectivePoint, radius, previousAngle)
+		var point2 = getCoordinatesFromAngle(perspectivePoint, radius, previousAngle + angleOffset)
+		previousAngle += angleOffset
+		
+    var midpoint = getMidpoint(point1, point2)
+    objects[i].position.x = midpoint.x
+    objects[i].position.y = perspectivePoint.y
+    objects[i].position.z = midpoint.z
+    console.log(perspectivePoint.y)
 		objects[i].lookAt(perspectivePoint)
 		objects[i].rotation.z = 0
-    // console.log(objects[i].rotation)
 		
     object.add(objects[i]);
 	}
-	  
+	
+	onRenderFcts.push(function() {
+		objects[5].rotation.x += 0.1
+	})
+	
 	var spherediv = document.createElement('div')
 	
 	spherediv.style.width = '50px';
 	spherediv.style.height = '50px';
 	spherediv.style.backgroundColor = 'blue'
 	
-  var sphere = new THREE.CSS3DObject(spherediv)
-	sphere.position.x = perspectivePoint.x
-	sphere.position.y = perspectivePoint.y
-	sphere.position.z = perspectivePoint.z
+  var centerPoint = new THREE.CSS3DObject(spherediv)
+	centerPoint.position.x = perspectivePoint.x
+	centerPoint.position.y = perspectivePoint.y
+	centerPoint.position.z = perspectivePoint.z
 	
 
-	object.add( sphere );
+	object.add( centerPoint );
 	
 	scene.add(new THREE.AxesHelper(5))
   // scene2.add(object)
