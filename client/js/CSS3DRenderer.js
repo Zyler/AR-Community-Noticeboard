@@ -9,7 +9,6 @@ THREE.CSS3DObject = function ( element ) {
 
 	this.element = element;
 	this.element.style.position = 'absolute';
-
 	this.addEventListener( 'removed', function () {
 
 		if ( this.element.parentNode !== null ) {
