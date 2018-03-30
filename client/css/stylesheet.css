@@ -1,0 +1,7 @@
+.elem {
+    background: #ff0000;
+}
+
+div:onHover {
+    background: #00ff00;
+}
