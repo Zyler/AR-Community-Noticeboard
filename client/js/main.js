@@ -100,19 +100,14 @@
 	// init controls for camera
 	var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
 		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + './data/patt.hiro',
+		patternUrl : THREEx.ArToolkitContext.baseURL + './data/thirdmarker.patt',
 		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
 		// as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
 		changeMatrixMode: 'cameraTransformMatrix'
 	})
 	// as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
 	webglScene.visible = false
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		add an object in the scene
-	//////////////////////////////////////////////////////////////////////////////////
-
-
+	css3dScene.visible = false
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
@@ -123,14 +118,6 @@
 		webglRenderer.render( webglScene, camera );
 		css3dRenderer.render( css3dScene, camera);
 	})
-	
-	var mouse = new THREE.Vector2(), INTERSECTED;
-	
-	function onDocumentMouseMove( event ) {
-		event.preventDefault();
-		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-	}
 	
 	// run the rendering loop
 	var lastTimeMsec= null
