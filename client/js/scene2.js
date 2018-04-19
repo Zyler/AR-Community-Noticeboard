@@ -1,4 +1,9 @@
-
+var webglGroup2 = new THREE.Group
+webglGroup2.name = 'webgl1'
+var css3dGroup2 = new THREE.Group
+css3dGroup2.name = 'css3d1'
+createArScene(webglGroup2, css3dGroup2, "../data/music_blue.patt")
+	
 var divScale = 0.004
 var perspectivePoint = new THREE.Vector3(0, 1500 * divScale, 0)
 
@@ -60,11 +65,11 @@ div1.innerHTML = `
 			</div>
 		</div>
 	</div>`
-elements.push(div1)
+// elements.push(div1)
 
 var div2 = document.createElement("div");
 div2.style.width = '50px'
-elements.push(div2)
+// elements.push(div2)
 
 var div3 = document.createElement("div");
 div3.style.width = '480px';
@@ -162,11 +167,11 @@ div3.innerHTML = `
 		</div>
 	</div>
 `
-elements.push(div3)
+// elements.push(div3)
 
 var div4 = document.createElement("div");
 div4.style.width = '50px'
-elements.push(div4)
+// elements.push(div4)
 
 var div5 = document.createElement("div");
 div5.style.width = '600px'
@@ -221,7 +226,7 @@ div5.innerHTML = `
 		</button>
 	</div>
 `
-elements.push(div5)
+// elements.push(div5)
 
 elements = elements.map((element) => {
   let cssObj = new THREE.CSS3DObject(element)
@@ -265,52 +270,63 @@ previousAngle = -previousAngle
 previousAngle -= Math.PI/2
 
 for (let i = 0; i < elements.length; i++) {
-  let div = elements[i].element;
-  let width = parseInt(div.style.width,10) * divScale
+	let div = elements[i].element;
+	let width = parseInt(div.style.width,10) * divScale
 	let angleOffset = getAngleFromLength(radius, width)
 	let point1 = getCoordinatesFromAngle(perspectivePoint, radius, previousAngle)
 	let point2 = getCoordinatesFromAngle(perspectivePoint, radius, previousAngle + angleOffset)
 	previousAngle += angleOffset
-  let midpoint = getMidpoint(point1, point2)
-  elements[i].position.x = midpoint.x
-  elements[i].position.y = midpoint.y
-  elements[i].position.z = midpoint.z
+	let midpoint = getMidpoint(point1, point2)
+	elements[i].position.x = midpoint.x
+	elements[i].position.y = midpoint.y
+	elements[i].position.z = midpoint.z
 	elements[i].lookAt(perspectivePoint)
 	elements[i].rotation.z = 0
-  css3dScene.add(elements[i])
+	css3dGroup2.add(elements[i])
 }
 
+webglGroup2.add(new THREE.AmbientLight( 0xF0F0F0 ));
+webglGroup2.add(new THREE.AxesHelper(5))
 
-webglScene.add(new THREE.AmbientLight( 0xF0F0F0 ));
-webglScene.add(new THREE.AxesHelper(5))
+var loader = new THREE.FBXLoader();
+var loaderAutoScale = 0.1
+// load a resource
+var clock = new THREE.Clock();
+var mixers = []
+loader.load(
+	// resource URL
+	'models/fbx/headphoneanim.fbx',
+	// called when resource is loaded
+	function ( object ) {
+		object.scale.x = loaderAutoScale
+		object.scale.y = loaderAutoScale
+		object.scale.z = loaderAutoScale
+		webglGroup2.add( object );
+		object.mixer = new THREE.AnimationMixer( object );
+		mixers.push( object.mixer );
+		
+		var action = object.mixer.clipAction( object.animations[ 0 ] );
+		action.play();
+	},
+	// called when loading is in progresses
+	function ( xhr ) {
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+	},
+	// called when loading has errors
+	function ( error ) {
+		console.log(error.message);
+	}
+);
 
-// var loader = new THREE.FBXLoader();
-// var loaderAutoScale = 0.01
-// // load a resource
-// loader.load(
-// 	// resource URL
-// 	'models/lego_Full_body(1).fbx',
-// 	// called when resource is loaded
-// 	function ( object ) {
-// 		object.scale.x = loaderAutoScale
-// 		object.scale.y = loaderAutoScale
-// 		object.scale.z = loaderAutoScale
-// 		webglScene.add( object );
-
-// 	},
-// 	// called when loading is in progresses
-// 	function ( xhr ) {
-
-// 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-// 	},
-// 	// called when loading has errors
-// 	function ( error ) {
-// 		// console.log("FUCK")
-// 		console.log(error.message);
-
-// 	}
-// );
+onRenderFcts.push(function() {
+	if ( mixers.length > 0 ) {
+		for ( var i = 0; i < mixers.length; i++ ) {
+			// console.log(i)
+			mixers[i].update( clock.getDelta() );
+			// console.log(clock.getDelta())
+		}
+	}
+})
 
 // var loader = new THREE.FBXLoader();
 // loader.load( 'models/fbx/Samba Dancing.fbx', 

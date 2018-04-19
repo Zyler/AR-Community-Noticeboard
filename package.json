@@ -6,11 +6,7 @@
   "repository": "",
   "author": "Jarod Wright & Liam Zylberberg",
   "dependencies": {
-    "express": "~3.2.4",
-    "three": "^0.91.0"
-  },
-  "scripts": {
-    "build": "webpack"
+    "express": "~3.2.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
