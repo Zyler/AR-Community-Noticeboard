@@ -289,13 +289,13 @@ webglGroup2.add(new THREE.AmbientLight( 0xF0F0F0 ));
 webglGroup2.add(new THREE.AxesHelper(5))
 
 var loader = new THREE.FBXLoader();
-var loaderAutoScale = 0.1
+var loaderAutoScale = 0.01
 // load a resource
 var clock = new THREE.Clock();
 var mixers = []
 loader.load(
 	// resource URL
-	'models/fbx/headphoneanim.fbx',
+	'models/fbx/Samba Dancing.fbx',
 	// called when resource is loaded
 	function ( object ) {
 		object.scale.x = loaderAutoScale
@@ -304,8 +304,10 @@ loader.load(
 		webglGroup2.add( object );
 		object.mixer = new THREE.AnimationMixer( object );
 		mixers.push( object.mixer );
+		console.log(object)
 		
 		var action = object.mixer.clipAction( object.animations[ 0 ] );
+		// console.log(action)
 		action.play();
 	},
 	// called when loading is in progresses
@@ -318,12 +320,10 @@ loader.load(
 	}
 );
 
-onRenderFcts.push(function() {
+onRenderFcts.push(function(dt) {
 	if ( mixers.length > 0 ) {
 		for ( var i = 0; i < mixers.length; i++ ) {
-			// console.log(i)
-			mixers[i].update( clock.getDelta() );
-			// console.log(clock.getDelta())
+			mixers[i].update( dt );
 		}
 	}
 })

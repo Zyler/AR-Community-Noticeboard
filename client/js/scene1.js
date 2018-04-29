@@ -31,38 +31,38 @@ div1.innerHTML = `
 		<div style='height: 1px;'></div>
 		<div style='height: 100px; background-color: white; margin: 20px; padding: 10px'>
 			<div style='width: 100%'>
-				<span style="font-size: 35px;">Restaurant on North </span> 
-				<span style="font-size: 15px"> 13:50 </span>
+				<span style="font-size: 36px;">Restaurant on North </span> 
+				<span style="font-size: 18px"> 13:50 </span>
 			</div>
 			<div style='width: 100%'>
-				<span style="font-size: 35px"> Live Band Performance </span>
-			</div>
-		</div>
-		<div style='height: 100px; background-color: white; margin: 20px; padding: 10px'>
-			<div style='width: 100%'>
-				<span style="font-size: 35px;">Restaurant on North </span> 
-				<span style="font-size: 15px"> Tues 17:30 </span>
-			</div>
-			<div style='width: 100%'>
-				<span style="font-size: 35px"> Taco Tuesday </span>
+				<span style="font-size: 36px"> Live Band Performance </span>
 			</div>
 		</div>
 		<div style='height: 100px; background-color: white; margin: 20px; padding: 10px'>
 			<div style='width: 100%'>
-				<span style="font-size: 35px;">Restaurant on North </span> 
-				<span style="font-size: 15px"> Wed 18:45 </span>
+				<span style="font-size: 36px;">Restaurant on North </span> 
+				<span style="font-size: 18px"> Tues 17:30 </span>
 			</div>
 			<div style='width: 100%'>
-				<span style="font-size: 35px"> Tango </span>
+				<span style="font-size: 36px"> Taco Tuesday </span>
 			</div>
 		</div>
 		<div style='height: 100px; background-color: white; margin: 20px; padding: 10px'>
 			<div style='width: 100%'>
-				<span style="font-size: 35px;">Restaurant on North </span> 
-				<span style="font-size: 15px"> Tues 17:30 </span>
+				<span style="font-size: 36px;">Restaurant on North </span> 
+				<span style="font-size: 18px"> Wed 18:45 </span>
 			</div>
 			<div style='width: 100%'>
-				<span style="font-size: 35px"> Taco Tuesday </span>
+				<span style="font-size: 36px"> Tango </span>
+			</div>
+		</div>
+		<div style='height: 100px; background-color: white; margin: 20px; padding: 10px'>
+			<div style='width: 100%'>
+				<span style="font-size: 36px;">Restaurant on North </span> 
+				<span style="font-size: 18px"> Tues 17:30 </span>
+			</div>
+			<div style='width: 100%'>
+				<span style="font-size: 36px"> Taco Tuesday </span>
 			</div>
 		</div>
 	</div>`

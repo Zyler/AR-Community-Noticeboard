@@ -46,7 +46,7 @@ var css3dScene = new THREE.Scene();
 //////////////////////////////////////////////////////////////////////////////////
 
 // Create a camera
-var camera = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 1, 10000 );
+var camera = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 1, 100 );
 webglScene.add(camera);
 // css3dScene.add(camera);
 
@@ -69,14 +69,16 @@ window.addEventListener('resize', function(){
 })
 
 
+var currentRotation = 0
+
 function onResize(){
 	arToolkitSource.onResizeElement()
 	arToolkitSource.copyElementSizeTo(webglRenderer.domElement)
-	css3dRenderer.setSize(window.innerWidth, window.innerHeight)
-	// var currentPerspective = parseInt(css3dRenderer.domElement.style.perspective, 10)
-	// css3dRenderer.domElement.style.perspective = (currentPerspective - 1) + "px"
-	// console.log(currentPerspective)
-	
+	arToolkitSource.copyElementSizeTo(css3dRenderer.domElement)
+	css3dRenderer.setSize(
+		parseInt(css3dRenderer.domElement.style.width, 10), 
+		parseInt(css3dRenderer.domElement.style.height, 10))
+		
 	if( arToolkitContext.arController !== null ){
 		arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
 	}	
