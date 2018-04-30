@@ -3,23 +3,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 // init renderer
-// var webglRenderer	= new THREE.WebGLRenderer({
-// 	antialias: true,
-// 	alpha: true
-// });
-// webglRenderer.setClearColor(new THREE.Color('lightgrey'), 0)
-// webglRenderer.setSize( window.innerWidth, window.innerHeight );
-// webglRenderer.domElement.style.position = 'absolute'
-// webglRenderer.domElement.style.top = '0px'
-// webglRenderer.domElement.style.left = '0px'
-// document.body.appendChild( webglRenderer.domElement );
 
-// var css3dRenderer = new THREE.CSS3DRenderer();
-// css3dRenderer.setSize(window.innerWidth, window.innerHeight);
-// css3dRenderer.domElement.style.position = 'absolute';
-// css3dRenderer.domElement.style.top = '0px'
-// css3dRenderer.domElement.style.left = '0px'
-// document.body.appendChild(css3dRenderer.domElement);
+var css3dRenderer = new THREE.CSS3DRenderer();
+css3dRenderer.setSize( window.innerWidth, window.innerHeight );
+css3dRenderer.domElement.style.position = 'absolute';
+css3dRenderer.domElement.style.top = 0;
+
 var webglRenderer	= new THREE.WebGLRenderer({
 	antialias: true,
 	alpha:true
@@ -28,10 +17,6 @@ webglRenderer.setClearColor(new THREE.Color('lightgrey'), 0)
 webglRenderer.setPixelRatio( window.devicePixelRatio );
 webglRenderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( webglRenderer.domElement );
-var css3dRenderer = new THREE.CSS3DRenderer();
-css3dRenderer.setSize( window.innerWidth, window.innerHeight );
-css3dRenderer.domElement.style.position = 'absolute';
-css3dRenderer.domElement.style.top = 0;
 document.body.appendChild( css3dRenderer.domElement );
 
 // array of functions for the rendering loop
@@ -47,8 +32,6 @@ var css3dScene = new THREE.Scene();
 
 // Create a camera
 var camera = new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 1, 100 );
-webglScene.add(camera);
-// css3dScene.add(camera);
 
 ////////////////////////////////////////////////////////////////////////////////
 //          handle arToolkitSource
@@ -73,12 +56,12 @@ var currentRotation = 0
 
 function onResize(){
 	arToolkitSource.onResizeElement()
-	arToolkitSource.copyElementSizeTo(webglRenderer.domElement)
 	arToolkitSource.copyElementSizeTo(css3dRenderer.domElement)
 	css3dRenderer.setSize(
 		parseInt(css3dRenderer.domElement.style.width, 10), 
 		parseInt(css3dRenderer.domElement.style.height, 10))
 		
+	arToolkitSource.copyElementSizeTo(webglRenderer.domElement)
 	if( arToolkitContext.arController !== null ){
 		arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
 	}	
@@ -113,8 +96,8 @@ onRenderFcts.push(function(){
 
 // render the scene
 onRenderFcts.push(function(){
-	webglRenderer.render( webglScene, camera );
-	css3dRenderer.render( css3dScene, camera);
+	css3dRenderer.render(css3dScene, camera);
+	webglRenderer.render(webglScene, camera);
 })
 
 // run the rendering loop
@@ -133,20 +116,17 @@ requestAnimationFrame(function animate(nowMsec){
 	})
 })
 
-////////////////////////////////////////////////////////////////////////////////
-//          Create a ArMarkerControls
-////////////////////////////////////////////////////////////////////////////////
-function createArScene(webglGroup, css3dGroup, patternPath) {
-	webglGroup.add(css3dGroup)
-	
+function createArScene(patternPath, init) {
+	let webglGroup = new THREE.Group
+	let css3dGroup = new THREE.Group
 	webglScene.add(webglGroup)
 	css3dScene.add(css3dGroup)
 	
-	var markerControls = new THREEx.ArMarkerControls(arToolkitContext, webglGroup, {
+	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, webglGroup, {
 		type : 'pattern',
 		patternUrl : THREEx.ArToolkitContext.baseURL + patternPath,
 	})
-	
+
 	onRenderFcts.push(function(){
 		css3dGroup.matrix.identity()
 		css3dGroup.applyMatrix(webglGroup.matrix)
@@ -156,4 +136,28 @@ function createArScene(webglGroup, css3dGroup, patternPath) {
 		    }
 		});
 	})
+	init(webglGroup, css3dGroup)
 }
+
+// Update tweens
+onRenderFcts.push(function() {
+	TWEEN.update()
+})
+
+//mouse event shit
+
+var raycaster = new THREE.Raycaster();
+
+let centerPointerLocation = new THREE.Vector2(0, 0)
+
+onRenderFcts.push(function() {
+	raycaster.setFromCamera(centerPointerLocation, camera)
+	var intersects = raycaster.intersectObjects(webglScene.children, true)
+	if (intersects.length>0) {
+		intersects.forEach(function(element){
+			if (typeof element.object.onHover === 'function') {
+				element.object.onHover(element.point)
+			}
+		})
+	}
+})
