@@ -8,6 +8,7 @@ var css3dRenderer = new THREE.CSS3DRenderer();
 css3dRenderer.setSize( window.innerWidth, window.innerHeight );
 css3dRenderer.domElement.style.position = 'absolute';
 css3dRenderer.domElement.style.top = 0;
+css3dRenderer.domElement.id = "css3drenderer"
 
 var webglRenderer	= new THREE.WebGLRenderer({
 	antialias: true,
@@ -16,6 +17,7 @@ var webglRenderer	= new THREE.WebGLRenderer({
 webglRenderer.setClearColor(new THREE.Color('lightgrey'), 0)
 webglRenderer.setPixelRatio( window.devicePixelRatio );
 webglRenderer.setSize( window.innerWidth, window.innerHeight );
+webglRenderer.domElement.id = "webglrenderer"
 document.body.appendChild( webglRenderer.domElement );
 document.body.appendChild( css3dRenderer.domElement );
 
@@ -121,6 +123,7 @@ function createArScene(patternPath, init) {
 	let css3dGroup = new THREE.Group
 	webglScene.add(webglGroup)
 	css3dScene.add(css3dGroup)
+	console.log(css3dScene)
 	
 	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, webglGroup, {
 		type : 'pattern',
@@ -144,7 +147,7 @@ onRenderFcts.push(function() {
 	TWEEN.update()
 })
 
-//mouse event shit
+//reticle stuff
 
 var raycaster = new THREE.Raycaster();
 
@@ -152,12 +155,33 @@ let centerPointerLocation = new THREE.Vector2(0, 0)
 
 onRenderFcts.push(function() {
 	raycaster.setFromCamera(centerPointerLocation, camera)
-	var intersects = raycaster.intersectObjects(webglScene.children, true)
+	let intersects = raycaster.intersectObjects(webglScene.children, true)
 	if (intersects.length>0) {
-		intersects.forEach(function(element){
-			if (typeof element.object.onHover === 'function') {
-				element.object.onHover(element.point)
+		intersects.forEach(function(intersection){
+			if (typeof intersection.object.onHover === 'function') {
+				intersection.object.onHover(intersection.point)
 			}
 		})
 	}
 })
+
+//mouse event stuff
+
+var mouseCaster = new THREE.Raycaster();
+
+let mouse = new THREE.Vector2(0, 0)
+window.addEventListener('click', function(event){
+  var bounds = webglRenderer.domElement.getBoundingClientRect()
+  mouse.x = ( (event.clientX - bounds.left) / webglRenderer.domElement.clientWidth ) * 2 - 1;
+  mouse.y = - ( (event.clientY - bounds.top) / webglRenderer.domElement.clientHeight ) * 2 + 1;
+  mouseCaster.setFromCamera( mouse, camera );
+  let intersects = mouseCaster.intersectObjects(webglScene.children, true);
+  if (intersects.length > 0) {
+	// Do stuff
+	intersects.forEach(function(intersection) {
+		if (typeof intersection.object.onClick === 'function') {
+			intersection.object.onClick(intersection.point)
+		}
+	})
+  }
+}, false)
