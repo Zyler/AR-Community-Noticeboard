@@ -63,7 +63,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 		// called when resource is loaded
 		function ( object ) {
 			musicModels = object
-			object.categoryName = "music"
+			object.categoryName = "Music"
 			object.scale.x = loaderAutoScale * 0.5
 			object.scale.y = loaderAutoScale * 0.5
 			object.scale.z = loaderAutoScale * 0.5
@@ -105,7 +105,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 		'models/final/clapper.fbx',
 		// called when resource is loaded
 		function ( object ) {
-			object.categoryName = "film"
+			object.categoryName = "Film & Media"
 			object.scale.x = loaderAutoScale
 			object.scale.y = loaderAutoScale
 			object.scale.z = loaderAutoScale
@@ -146,7 +146,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 		'models/final/mask_Entertainment (1).fbx',
 		// called when resource is loaded
 		function ( object ) {
-			object.categoryName = "culture"
+			object.categoryName = "Visual & Performing Art"
 			object.scale.x = loaderAutoScale * 0.06
 			object.scale.y = loaderAutoScale * 0.06
 			object.scale.z = loaderAutoScale * 0.06
@@ -187,4 +187,4 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 	})
 })
 
-switchCategory("music")
+switchCategory("Music")
