@@ -123,7 +123,6 @@ function createArScene(patternPath, init) {
 	let css3dGroup = new THREE.Group
 	webglScene.add(webglGroup)
 	css3dScene.add(css3dGroup)
-	console.log(css3dScene)
 	
 	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, webglGroup, {
 		type : 'pattern',

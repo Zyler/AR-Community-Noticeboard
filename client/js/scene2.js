@@ -35,7 +35,81 @@ function setLeftPanelContent(text1, text2, text3, text4) {
 	$('#text3').html(text3)
 	$('#text4').html(text4)
 }
+var categoryLists = {}
+	
+categoryLists["film"] = [
+	{
+	title: "YEP",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "TEST",
+	desc: 'TESTSETSTSETSETSETSETSSETST:_ab_intra',
+	loc: "TESTSTESTSTSETSETSETSETETSETSETESTST",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+	dateFormat: "MM/DD/YYYY",
+	}
+]
 
+categoryLists["music"] = [
+{
+	title: "Dance",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "Dance",
+	desc: 'Sydney_Dance_Company:_ab_intra',
+	loc: "Art_Center_Melbourne",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+	dateFormat: "MM/DD/YYYY",
+},
+{
+	title: "MakerHangout: VR freeplay",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "Dance",
+	desc: 'Sydney_Dance_Company:_ab_intra',
+	loc: "Art_Center_Melbourne",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+},
+{
+	title: "The Rignmasters' Carnival: A Goblin Gruise",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "Dance",
+	desc: 'Sydney_Dance_Company:_ab_intra',
+	loc: "Art_Center_Melbourne",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+},
+{
+	title: "Internal Surround",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "Dance",
+	desc: 'Sydney_Dance_Company:_ab_intra',
+	loc: "Art_Center_Melbourne",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+},
+{
+	title: "Miranda Jill Millen: My Kath & Kim",
+	startTime: new Date("2018-05-30T09:00:00"),
+	endTime: new Date("2018-06-01T11:00:00"),
+	timezone: "Australia",
+	title: "Dance",
+	desc: 'Sydney_Dance_Company:_ab_intra',
+	loc: "Art_Center_Melbourne",
+	organizer: "Mira",
+	organizerEmail: "mira.moro92@gmail.com",
+}]
+	
 createArScene("../data/music2.patt", function(webglGroup, css3dGroup) {
 	let divScale = 0.004
 	let perspectivePoint = new THREE.Vector3(0, 1500 * divScale, 0)
@@ -53,82 +127,7 @@ createArScene("../data/music2.patt", function(webglGroup, css3dGroup) {
 	scroller.style.height = "100%"
 	scroller.style.overflow = "auto"
 	main.appendChild(scroller)
-	
-	let info = [
-	{
-		title: "Dance",
-		startTime: new Date("2018-05-30T09:00:00"),
-		endTime: new Date("20180602T110000"),
-		timezone: "Australia",
-		title: "Dance",
-		desc: 'Sydney_Dance_Company:_ab_intra',
-		loc: "Art_Center_Melbourne",
-		organizer: "Mira",
-		organizerEmail: "mira.moro92@gmail.com",
-		dateFormat: "MM/DD/YYYY",
-	},
-	{
-		title: "MakerHangout: VR freeplay",
-		startTime: new Date("2018-05-30T09:00:00"),
-		endTime: new Date("2018-06-01T11:00:00"),
-		timezone: "Australia",
-		title: "Dance",
-		desc: 'Sydney_Dance_Company:_ab_intra',
-		loc: "Art_Center_Melbourne",
-		organizer: "Mira",
-		organizerEmail: "mira.moro92@gmail.com",
-	},
-	{
-		title: "The Rignmasters' Carnival: A Goblin Gruise",
-		startTime: new Date("2018-05-30T09:00:00"),
-		endTime: new Date("2018-06-01T11:00:00"),
-		timezone: "Australia",
-		title: "Dance",
-		desc: 'Sydney_Dance_Company:_ab_intra',
-		loc: "Art_Center_Melbourne",
-		organizer: "Mira",
-		organizerEmail: "mira.moro92@gmail.com",
-	},
-	{
-		title: "Internal Surround",
-		startTime: new Date("2018-05-30T09:00:00"),
-		endTime: new Date("2018-06-01T11:00:00"),
-		timezone: "Australia",
-		title: "Dance",
-		desc: 'Sydney_Dance_Company:_ab_intra',
-		loc: "Art_Center_Melbourne",
-		organizer: "Mira",
-		organizerEmail: "mira.moro92@gmail.com",
-	},
-	{
-		title: "Miranda Jill Millen: My Kath & Kim",
-		startTime: new Date("2018-05-30T09:00:00"),
-		endTime: new Date("2018-06-01T11:00:00"),
-		timezone: "Australia",
-		title: "Dance",
-		desc: 'Sydney_Dance_Company:_ab_intra',
-		loc: "Art_Center_Melbourne",
-		organizer: "Mira",
-		organizerEmail: "mira.moro92@gmail.com",
-	}]
 
-	info.forEach(function(element) {
-		let item = document.createElement("div")
-		console.log(element.startTime)
-		item.className = "s1"
-		item.addEventListener('click', function() {
-			setLeftPanelContent(element.title, element.startTime.toDateString(), element.loc, element.desc)
-		})
-		item.innerHTML = element.title + `
-		<div class="all">
-			>>
-			<a href=` + generateGoogleCalendarLink(element.title, element.startTime, element.endTime, element.desc, element.loc) + `>
-				<img src="img/save.png" alt="" style="width:35px;" />
-			</a>
-		</div>
-		`
-		scroller.appendChild(item)
-	});
 	elements.push(main)
 	
 	elements = elements.map((element) => {
