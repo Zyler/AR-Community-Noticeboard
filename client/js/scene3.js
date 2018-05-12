@@ -108,7 +108,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 	}
 	
 	function switchEvent(element) {
-		$('#leftPanel').css('background-image: ' + element.img)
+		$('#leftPanel').css('background-image', 'url(..' + element.img + ')')
 		$('#text1').html(element.title)
 		$('#text2').html(element.start.toDateString())
 		$('#text3').html(element.loc)
