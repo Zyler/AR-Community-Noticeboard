@@ -15,18 +15,30 @@
 
 .s1{
     background-color: white; 
-    padding-left: 10px; 
-    padding-right: 10px; 
     font-family: 'futura';
     font-size: 40px; color: #FF7E42; 
     letter-spacing: -1px; 
     border: 5px solid #FF7E42;
+    border-radius: 20px;
     box-shadow: 3px 5px 10px #C0C0C0;
+    overflow: hidden;
+    margin: 10px;
+}
+.s1 .content {
+    padding-left: 10px; 
+    padding-right: 10px;
+}
+
+.s1 .seemore {
+    width: 700px;
+    height: 45px;
+    background-color: #FF7E42;
+    color: white;
 }
 
 .all{
     width: 318px;
-    height: 100px;
+    height: 60px;
     color: #FDED5C; 
     font-family: 'futura'; 
     font-size: 30px; 
@@ -177,6 +189,10 @@ a{
     background-repeat: no-repeat; 
 }
 
+.tblock {
+    width: 100%;
+}
+
 .innerbox {
     background-image: url(../img/back.png); 
     position: relative; 
@@ -200,7 +216,7 @@ a{
     height: 500px; 
     op: 500px;
 }
-#text {
+#text1 {
     width: 300px; 
     margin-left: 80px; 
     letter-spacing: 1px;
@@ -240,8 +256,7 @@ a{
     background-image: url(../img/ca.png); 
     width:40px; 
     height: 40px; 
-    margin-top: 10px; 
-    margin-left: 30px; 
+    margin-left: 25px; 
     background-repeat: no-repeat; 
     float: left; 
 }
@@ -251,8 +266,7 @@ a{
     background-image: url(../img/lo.png); 
     width:40px; 
     height: 40px;  
-    margin-top: 25px;
-    margin-left: 35px; 
+    margin-left: 25px; 
     background-repeat: no-repeat; 
     float: left; 
 }
@@ -261,8 +275,7 @@ a{
     background-image: url(../img/me.png); 
     width:40px; 
     height: 40px; 
-    margin-top: 25px; 
-    margin-left: 35px; 
+    margin-left: 25px; 
     background-repeat: no-repeat; 
     float: left; 
 }

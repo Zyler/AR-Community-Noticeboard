@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Docklands website</title>
+        <meta name="description" content="beepbop">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="css/Slider.css">
+    </head>
+    <body>
+        
+        <div class="topnav">
+        <div onclick="openNav()"><img src="img/Top_menu.png" width="100%;"></div>
+
+        </div>
+        <!-- Slideshow container -->
+<div class="slideshow-container">
+<br>
+<br>
+<br>
+<br>
+<br>
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img src="img/Slider/Doggo.png" style="width:100%" >
+
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 3</div>
+    <img src="img/Slider/Doggo.png" style="width:100%" >
+
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 3</div>
+    <img src="img/Slider/Doggo.png" style="width:100%" >
+
+  </div>
+
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+        <h2>/ Categories /</h2>
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <a href="#">Entertainment</a>
+            <div class="inner">
+				<p>ESL and literacy</p>
+				<p>Hisotory and heritage</p>
+                <p>Creative writing</p>
+                <p>Books and reading</p>
+                <p>SChool Holiday Program</p>
+			</div>
+          <a href="#">Education</a>
+            <div class="inner">
+				<p>Visual & Performing arts</p>
+				<p>Film and Media</p>
+			</div>
+          <a href="#">Craft</a>
+            <div class="inner">
+			</div>
+          <a href="#">Community</a>
+            <div class="inner">
+				<p>Teens and young adults</p>
+				<p>Community Program</p>
+                <p>Jobs</p>
+			</div>
+        <a href="#">Marketplace</a>
+            <div class="inner">
+				<p>Buying</p>
+				<p>Selling</p>
+			</div>
+        </div>
+        <div class="iconbox">
+                <div class="imgbox">
+                    <img class = "icons" src="Icons/Education.png"/>
+                </div>
+                <div class="imgbox">
+                    <img class = "icons" src="Icons/Community.png"/>
+                </div>
+                <div class="imgbox" id=centerbox>
+                    <img class = "icons" src="Icons/Craft.png"/>
+                </div>
+                <div class="imgbox">
+                    <img class = "icons" src="Icons/Market.png"/>
+                </div>
+                <div class="imgbox">
+                    <img class = "icons" src="Icons/Education.png"/>
+                </div>
+            </div>
+
+            <h2>/ Upcoming meetings & events /</h2>
+        <div class = newsbox>
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_Circle.png"/>
+                </div>
+                <p id= "date">Sunday 25 March 11am to 3pm</p>
+                <h3>Internal Surround: artist <br> talks</h3>
+            </div>
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_Dog.png"/>
+                </div>
+                <p id= "date">Sunday 25 March 11am to 3pm</p>
+                <h3>Docklands dog party</h3>
+            </div>
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_Emu.png"/>
+                </div>
+                <p id= "date">Sunday 25 March 11am to 3pm</p>
+                <h3>Economics of Happiness film screening</h3>
+            </div>
+            <br id="destroy">
+
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_Note.png"/>
+                </div>
+                <p id= "date">Asemic,<br>unpronounceable symbol</p>
+                <h3>Docklands dog party</h3>
+            </div>
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_Ringmaster.png"/>
+                </div>
+                <p id= "date">Sunday 25 March 11am to 3pm</p>
+                <h3>The Ringmaster's Carnival:<br>A Goblin Cruise</h3>
+            </div>
+            <div class = infobox>
+                <div class = infoimage>
+                    <img class = "info" src="img/b_vr.png"/>
+                </div>
+                <p id= "date">Sunday 25 March 11am to 3pm</p>
+                <h3>Marker Hangout: VR freeplay</h3>
+            </div>
+        </div>
+
+            <br>
+            <br>
+
+            <img class = "seemore" src = "img/See_more.png">
+
+        <br>
+            <br>
+
+        <br>
+            <br>
+
+        <br>
+            <br>
+        <div class="l_navbar">
+        
+            <div ><img src="img/l_nav.jpg" id = "lowNav"></div>
+        
+        </div>
+
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                // document.getElementById("main").style.marginLeft = "250px";
+                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                // document.getElementById("main").style.marginLeft= "0";
+                document.body.style.backgroundColor = "white";
+            }
+        </script>
+                    <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+              showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+              showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("dot");
+              if (n > slides.length) {slideIndex = 1}    
+              if (n < 1) {slideIndex = slides.length}
+              for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";  
+              }
+              for (i = 0; i < dots.length; i++) {
+                  dots[i].className = dots[i].className.replace(" active", "");
+              }
+              slides[slideIndex-1].style.display = "block";  
+              dots[slideIndex-1].className += " active";
+            }
+            </script>
+        
+    </body>
+</html>

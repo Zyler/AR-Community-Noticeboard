@@ -6,28 +6,25 @@ createArScene("../data/music1.patt", function(webglGroup, css3dGroup) {
 	
 	let main = document.createElement("div");
 	main.className = "outerbox"
-	main.onclick = "console.log(\'FUCK\')"
+	main.id = "leftPanel"
 	main.style.width = '400px';
 	main.style.height = '500px';
 	main.innerHTML = `
   <div class="button"></div>
   <div class="innerbox transform">
-    <div class="button2" onclick='toggleOff()'></div>
-    <div id="text">
-      Sydney Dance Company: ab intra 
+    <div class="button2"></div>
+    <div id="text1"></div>
+    <div class="tblock">
+	    <div class="cale"></div>
+	    <div id="text2"></div>
     </div>
-    <div class="cale"></div>
-
-    <div id = "text2">
-      30 May - 2 June
+    <div class="tblock">
+	    <div class="cale2"></div>
+	    <div id="text3"></div>
     </div>
-    <div class="cale2"></div>
-    <div id="text3">
-      Art Centre Melbourne
-    </div>
-    <div class="cale3"></div>
-    <div id="text4">
-      Visual & Performing art
+    <div class="tblock">
+	    <div class="cale3"></div>
+	    <div id="text4"></div>
     </div>
   </div>
 	`
