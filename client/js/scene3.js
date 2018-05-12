@@ -4,6 +4,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "asemic, unpronounceable symbol",
 				start: new Date("2018-02-03T09:00:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "asemic, unpronounceable symbol",
 				desc: 'Emilie Tarp Østensgård communicates a concept to Lotte Schwerdtfeger via a single sheet of A4 paper. Without preconceptions, Lotte Schwerdtfeger interprets this as instructions to create a work.',
@@ -17,6 +18,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "Travel sketching with Alissa Duke",
 				start: new Date("2018-02-24T09:00:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "Travel sketching with Alissa Duke",
 				desc: 'Join artist Alissa Duke on an inspirational walk around East Melbourne with some hands-on drawing experience along with tips and techniques on travel sketching.',
@@ -30,6 +32,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "Raymond Walters: Me, My Life",
 				start: new Date("2018-05-11T09:00:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "Raymond Walters: Me, My Life",
 				desc: 'Where is your kurunpa - your soul, your spirit? Every drop or stroke of paint, raw and free flowing or still and purposed is me, my life.',
@@ -43,6 +46,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "'The Ringmasters' Carnival: A Goblin Cruise",
 				start: new Date("2018-03-24T019:30:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "'The Ringmasters' Carnival: A Goblin Cruise",
 				desc: 'The Ringmasters’ Carnival is a boat party – this is how we bring you a celebration for less!',
@@ -57,6 +61,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "MakerHangout: VR freeplay",
 				start: new Date("2018-02-04T09:13:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "MakerHangout: VR freeplay",
 				desc: 'On Sundays at the Library at The Dock Makerspace we showcase a variety of games on the HTC Vive.',
@@ -69,6 +74,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "Miranda Jill Millen: My Kath & Kim",
 				start: new Date("2018-03-02T09:00:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "Miranda Jill Millen: My Kath & Kim",
 				desc: 'In celebration of one of the most iconic television programs in Australia, Miranda Jill Millen welcomes you to her solo exhibition My Kath & Kim.',
@@ -83,6 +89,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "Fluxus and beyond",
 				start: new Date("2018-03-28T09:18:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "Fluxus and beyond",
 				desc: 'Join us for a revisiting of Fluxus performances and see new work inspired by the movement.',
@@ -95,6 +102,7 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			{
 				title: "Internal Surround",
 				start: new Date("2018-03-20T09:00:00"),
+				end: new Date("2018-02-03T09:00:00"),
 				timezone: "Australia",
 				title: "Internal Surround",
 				desc: 'What does home sound like to you? We asked four local sound artists to make works that reflect where they come from, where they are and where they’re heading.',
@@ -128,11 +136,14 @@ createArScene("../data/music3.patt", function(webglGroup, css3dGroup) {
 			item.addEventListener('click', function() {
 				switchEvent(element)
 			})
+			let startDateFormat = element.start.toISOString().replace(/-|:|\.\d\d\d/g,"")
+			let endDateFormat = element.end.toISOString().replace(/-|:|\.\d\d\d/g,"")
+			
 			let calendarUrl = "https://calendar.google.com/calendar/r/eventedit?" 
-			+ "text=" + element.title 
-			+ '&dates=' + element.start 
-			+ '&details=' + element.desc 
-			+ '&location=' + element.loc
+			+ "text=" + encodeURIComponent(element.title)
+			+ '&dates=' + encodeURIComponent(startDateFormat) + "/" + encodeURIComponent(endDateFormat)
+			+ '&details=' + encodeURIComponent(element.desc)
+			+ '&location=' + encodeURIComponent(element.loc)
 		
 			item.innerHTML = `<div class="content">` + element.title + `</div>
 			<div class="all">
